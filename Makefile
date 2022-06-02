@@ -3,50 +3,61 @@
 #                                                         ::::::::             #
 #    Makefile                                           :+:    :+:             #
 #                                                      +:+                     #
-#    By: mweverli <marvin@codam.nl>                   +#+                      #
+#    By: mweverli <mweverli@codam.nl>                 +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/11/29 14:51:29 by mweverli      #+#    #+#                  #
-#    Updated: 2021/12/02 19:35:09 by mweverli      ########   odam.nl          #
+#    Updated: 2022/06/02 17:55:46 by mweverli      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
-#VAR
+#Remove all debugging functionalities before hand-in.
 
-CC = gcc
-CFL = -Wall -Werror -Wextra
-NAME = libftprintf.a
+#STANDARD VARIABLES
 
-LIB_LIS =	\
+NAME	=	ft_printf
+EXE 	=	$(NAME).out
+OBJ_DIR	=	./OBJ
 
-LIB_DIR =./LIBFT
-LIB_SRC =$(addprefix $(LIB_DIR)/,$(LIB_LIS))
-LIB_OBJ =$(addprefix $(OBJ_DIR)/,$(LIB_SRC:.c=.o))
 
-SRC =	\
+#OBJ		=	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 
-OBJ_DIR =./OBJ
-OBJ =$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
+SRC		=	\
+
+
+ifdef DB
+CFL		=	-Wall -Werror -Wextra -g
+else
+CFL		=	-Wall -Werror -Wextra
+endif
+
 
 # Recipes:
 
 all: $(NAME)
 
-$(NAME): $(OBJ) $(LIB_OBJ)
-	ar rcs $(NAME) $^
+$(NAME): $(OBJ)
+	ar rcs $(NAME) $< 
+
+test: $(OBJ)
+	$(CC) $(CFL) -c main.c -o ./OBJ/main.o
+	$(CC) $(CFL) -o $(EXE) $^
+
+db: clean
+	@ $(MAKE) test DB=1
+	./$(EXE)
 
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(@D)
 	$(CC) $(CFL) -c $< -o $@
 
-$(LIB_OBJ)/%.o: $(LIB_DIR)/%.c
-	@mkdir -p $(@D)
-	$(CC) $(CFL) -c $< -o $@
 
 clean:
 	@mkdir -p $(OBJ_DIR)
-	rm -r $(OBJ_DIR)
+	rm -rf $(OBJ_DIR)
+	rm -rf $(LIB_DIR)
 
 fclean: clean
 	rm -f $(NAME)
+	rm -f $(EXE)
 
 re: fclean all
