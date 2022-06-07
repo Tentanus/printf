@@ -6,7 +6,7 @@
 #    By: mweverli <mweverli@codam.nl>                 +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/11/29 14:51:29 by mweverli      #+#    #+#                  #
-#    Updated: 2022/06/02 17:55:46 by mweverli      ########   odam.nl          #
+#    Updated: 2022/06/07 18:34:51 by mweverli      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,10 +18,11 @@ NAME	=	ft_printf
 EXE 	=	$(NAME).out
 OBJ_DIR	=	./OBJ
 
+OBJ		=	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 
-#OBJ		=	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
-
-SRC		=	\
+SRC		=	main.c\
+			ft_printf.c\
+			ft_printf_utils.c\
 
 
 ifdef DB
@@ -39,12 +40,11 @@ $(NAME): $(OBJ)
 	ar rcs $(NAME) $< 
 
 test: $(OBJ)
-	$(CC) $(CFL) -c main.c -o ./OBJ/main.o
 	$(CC) $(CFL) -o $(EXE) $^
+	./$(EXE)
 
 db: clean
 	@ $(MAKE) test DB=1
-	./$(EXE)
 
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(@D)

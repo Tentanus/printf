@@ -6,7 +6,7 @@
 /*   By: mweverli <mweverli@codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 16:15:30 by mweverli      #+#    #+#                 */
-/*   Updated: 2022/06/02 17:55:42 by mweverli      ########   odam.nl         */
+/*   Updated: 2022/06/07 18:34:57 by mweverli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,26 @@
 # include <limits.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdarg.h>
 
 //DEFINITIONS
 
-# ifndef DEF_CHAR
-#  define DEF_CHAR = '%'
+# ifndef FORMAT_CHAR
+#  define FORMAT_CHAR '%'
 # endif
 
 //FUNCTION
-typedef int (*put_func) (va_list *)
+typedef int		(*put_func) (va_list *);
+int				ft_printf(const char *str, ...);
+int				put_char(va_list *list);
+int				put_str(va_list *list);
+int				put_poi(va_list *list);
+
+static const	put_func func_array[256] = {
+	['c'] = &put_char,
+	['s'] = &put_str,
+	['p'] = &put_poi
+};
 
 
 #endif
