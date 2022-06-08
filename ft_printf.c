@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_printf.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: mweverli <marvin@codam.nl>                   +#+                     */
+/*   By: mweverli <mweverli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/02 19:07:06 by mweverli      #+#    #+#                 */
-/*   Updated: 2022/06/07 18:34:48 by mweverli      ########   odam.nl         */
+/*   Updated: 2022/06/08 15:32:21 by mweverli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int ft_printf(const char *str, ...)
 	{
 		if (str[strpos] == FORMAT_CHAR)
 		{
+			if (*func_array[(int) str[strpos + 1]] == NULL)
+				return (strlen);
 			strlen += (*func_array[(int) str[strpos + 1]])(&arg);
 			strpos++;
 		}

@@ -6,7 +6,7 @@
 /*   By: mweverli <mweverli@codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 16:15:30 by mweverli      #+#    #+#                 */
-/*   Updated: 2022/06/07 18:34:57 by mweverli      ########   odam.nl         */
+/*   Updated: 2022/06/08 15:32:32 by mweverli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,13 @@ int				ft_printf(const char *str, ...);
 int				put_char(va_list *list);
 int				put_str(va_list *list);
 int				put_poi(va_list *list);
+int				put_prc(va_list *list);
 
 static const	put_func func_array[256] = {
 	['c'] = &put_char,
 	['s'] = &put_str,
-	['p'] = &put_poi
+	['p'] = &put_poi,
+	['%'] = &put_prc
 };
 
 

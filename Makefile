@@ -3,10 +3,10 @@
 #                                                         ::::::::             #
 #    Makefile                                           :+:    :+:             #
 #                                                      +:+                     #
-#    By: mweverli <mweverli@codam.nl>                 +#+                      #
+#    By: mweverli <mweverli@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/11/29 14:51:29 by mweverli      #+#    #+#                  #
-#    Updated: 2022/06/07 18:34:51 by mweverli      ########   odam.nl          #
+#    Updated: 2022/06/08 12:15:35 by mweverli      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,6 @@ $(OBJ_DIR)/%.o: %.c
 clean:
 	@mkdir -p $(OBJ_DIR)
 	rm -rf $(OBJ_DIR)
-	rm -rf $(LIB_DIR)
 
 fclean: clean
 	rm -f $(NAME)
