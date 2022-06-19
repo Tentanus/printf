@@ -12,71 +12,48 @@
 
 #include "ft_printf.h"
 
-int	put_char(va_list *list)
+char *ft_itoa(long n)
 {
-	char	c;
-
-	c = va_arg(*list, int);
-	write(1, &c, 1);
-	return (1);
-}
-
-int	put_str(va_list *list)
-{
+	int		i_len;
 	char	*str;
-	int		count;
 
-	str = va_arg(*list, char *);
-	count = 0;
-	if (str == NULL)
+	i_len = int_len(n);
+	str = malloc((i_len + 1) * sizeof(char));
+	if (!str)
+		return (NULL);
+	str[i_len] = '\0';
+	i_len--;
+	if (n < 0)
 	{
-		write(1, "(null)", 6);
-		return (6);
+		str[0] = '-';
+		n *= -1;
 	}
-	while (str[count])
+	else if (n == 0)
+		str[0] = '0';
+	while (n > 0 && i_len >= 0)
 	{
-		write(1, &str[count], 1);
-		count++;
+		str[i_len] = '0' + (n % 10);
+		n /= 10;
+		i_len--;
 	}
-	return (count);
+	return (str);
 }
 
-int	put_poi(va_list *list)
+int int_len(long num)
 {
-	int		len;
-	char	*set;
+	int len;
 
-	set = "0123456789abcdef";
-	write(1, "0x", 2);
 	len = 0;
-	(void)list;
-	return (2 + len);
+	if (num <= 0)
+	{
+		num *= -1;
+		len++;
+	}
+	while (num)
+	{
+		num /= 10;
+		len++;
+	}
+	return (len);
 }
 
-//
-//int	put_dec(va_list *list){
-//	
-//}
-//
-//int	put_int(va_list *list){
-//	
-//}
-//
-//int	put_uns_int(va_list *list){
-//	
-//}
-//
-//int	put_hex(va_list *list){
-//	
-//}
-//
-//int	put_HEX(va_list *list){
-//	
-//}
-//
-int	put_prc(va_list *list)
-{
-	(void) list;
-	write(1, "%", 1);
-	return (1);
-}
