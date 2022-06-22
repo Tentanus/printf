@@ -6,17 +6,28 @@
 /*   By: mweverli <mweverli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/02 19:07:06 by mweverli      #+#    #+#                 */
-/*   Updated: 2022/06/08 15:32:21 by mweverli      ########   odam.nl         */
+/*   Updated: 2022/06/22 20:25:06 by mweverli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <stdio.h>
 
-int ft_printf(const char *str, ...)
+static t_func	g_func_array[256] = {
+['c'] = &put_char,
+['s'] = &put_str,
+['i'] = &put_int,
+['d'] = &put_int,
+['x'] = &put_hex,
+['X'] = &put_HEX,
+['%'] = &put_prc
+};
+
+int	ft_printf(const char *str, ...)
 {
-	int strlen;
-	int strpos;
-	va_list arg;
+	int		strlen;
+	int		strpos;
+	va_list	arg;
 
 	va_start(arg, str);
 	strlen = 0;
@@ -25,10 +36,10 @@ int ft_printf(const char *str, ...)
 	{
 		if (str[strpos] == FORMAT_CHAR)
 		{
-			if (*func_array[(int) str[strpos + 1]] == NULL)
-				return (strlen);
-			strlen += (*func_array[(int) str[strpos + 1]])(&arg);
 			strpos++;
+			if (*g_func_array[(int) str[strpos]] == NULL)
+				continue ;
+			strlen += (*g_func_array[(int) str[strpos]])(&arg);
 		}
 		else
 			strlen += write(1, &str[strpos], 1);

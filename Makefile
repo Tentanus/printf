@@ -6,7 +6,7 @@
 #    By: mweverli <mweverli@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/11/29 14:51:29 by mweverli      #+#    #+#                  #
-#    Updated: 2022/06/08 12:15:35 by mweverli      ########   odam.nl          #
+#    Updated: 2022/06/22 20:25:13 by mweverli      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,8 @@ OBJ		=	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 
 SRC		=	main.c\
 			ft_printf.c\
-			ft_printf_utils.c\
-
+			ft_printf_utils_01.c\
+			ft_printf_utils_02.c\
 
 ifdef DB
 CFL		=	-Wall -Werror -Wextra -g
