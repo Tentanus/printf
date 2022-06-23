@@ -6,7 +6,7 @@
 /*   By: mweverli <mweverli@codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 16:15:30 by mweverli      #+#    #+#                 */
-/*   Updated: 2022/06/22 19:33:15 by mweverli      ########   odam.nl         */
+/*   Updated: 2022/06/23 18:14:04 by mweverli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 //FUNCTION
 typedef int		(*t_func) (va_list *);
 int				ft_printf(const char *str, ...);
+int				write_till(const char **str);
 //printf_utils_01
 int				put_char(va_list *list);
 int				put_str(va_list *list);

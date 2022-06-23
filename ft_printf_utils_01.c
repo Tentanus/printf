@@ -6,7 +6,7 @@
 /*   By: mweverli <mweverli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 14:26:14 by mweverli      #+#    #+#                 */
-/*   Updated: 2022/06/22 12:56:01 by mweverli      ########   odam.nl         */
+/*   Updated: 2022/06/23 18:14:06 by mweverli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ int	put_hex(va_list *list)
 {
 	char			*set;
 	unsigned long	n;
-
 
 	set = "0123456789abcdef\0";
 	n = va_arg(*list, unsigned long);

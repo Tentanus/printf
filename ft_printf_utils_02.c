@@ -6,7 +6,7 @@
 /*   By: mweverli <mweverli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 14:26:14 by mweverli      #+#    #+#                 */
-/*   Updated: 2022/06/22 20:25:08 by mweverli      ########   odam.nl         */
+/*   Updated: 2022/06/23 18:14:00 by mweverli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char *ft_itoa(long n)
 	return (str);
 }
 
-int int_len(long n)
+int int_len(long n, int base)
 {
 	int len;
 
@@ -51,7 +51,7 @@ int int_len(long n)
 	}
 	while (n)
 	{
-		n /= 10;
+		n /= (long) base;
 		len++;
 	}
 	return (len);

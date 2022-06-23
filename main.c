@@ -6,7 +6,7 @@
 /*   By: mweverli <mweverli@studend.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 17:57:58 by mweverli      #+#    #+#                 */
-/*   Updated: 2022/06/22 20:25:11 by mweverli      ########   odam.nl         */
+/*   Updated: 2022/06/23 18:14:02 by mweverli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdio.h>
@@ -16,7 +16,7 @@ int main(void){
 
 	int		ret_cont;
 	int		ret_test;
-	char	str[] = "test me baby |%";
+	char	str[] = "test me baby |%qqq|   jajaja";
 	char	test[] = "A string\0";
 
 	printf("\n--==-- STARTING THE TEST --==--\n");

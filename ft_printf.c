@@ -6,14 +6,14 @@
 /*   By: mweverli <mweverli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/02 19:07:06 by mweverli      #+#    #+#                 */
-/*   Updated: 2022/06/22 20:25:06 by mweverli      ########   odam.nl         */
+/*   Updated: 2022/06/23 18:03:33 by mweverli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h>
 
-static t_func	g_func_array[256] = {
+static const t_func	g_func_array[256] = {
 ['c'] = &put_char,
 ['s'] = &put_str,
 ['i'] = &put_int,
@@ -23,27 +23,37 @@ static t_func	g_func_array[256] = {
 ['%'] = &put_prc
 };
 
+int	write_till(const char **str)
+{
+	int	count;
+
+	count = 0;
+	while ((*str)[count] && (*str)[count] != FORMAT_CHAR)
+		count++;
+	write(1, *str, count);
+	*str += count - 1;
+	return (count);
+}
+
 int	ft_printf(const char *str, ...)
 {
 	int		strlen;
-	int		strpos;
 	va_list	arg;
 
 	va_start(arg, str);
 	strlen = 0;
-	strpos = 0;
-	while (str[strpos])
+	while (*str)
 	{
-		if (str[strpos] == FORMAT_CHAR)
-		{
-			strpos++;
-			if (*g_func_array[(int) str[strpos]] == NULL)
-				continue ;
-			strlen += (*g_func_array[(int) str[strpos]])(&arg);
-		}
+		if (*str != FORMAT_CHAR)
+			strlen += write_till(&str);
 		else
-			strlen += write(1, &str[strpos], 1);
-		strpos++;
+		{
+			str++;
+			if (*g_func_array[(int) *str++] == NULL)
+				continue ;
+			strlen += (*g_func_array[(int) *str])(&arg);
+		}
+		str++;
 	}
 	va_end(arg);
 	return (strlen);
