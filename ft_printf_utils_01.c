@@ -6,7 +6,7 @@
 /*   By: mweverli <mweverli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 14:26:14 by mweverli      #+#    #+#                 */
-/*   Updated: 2022/07/02 18:12:06 by mweverli      ########   odam.nl         */
+/*   Updated: 2022/07/02 19:15:50 by mweverli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,18 @@ int	base_len(long n, int base)
 		len++;
 	}
 	return (len);
+}
+
+int	write_till(const char **str)
+{
+	int	count;
+
+	count = 0;
+	while ((*str)[count] && (*str)[count] != FORMAT_CHAR)
+		count++;
+	write(1, *str, count);
+	*str += count;
+	return (count);
 }
 
 void	ft_itoh_sub(char *set, char *str, unsigned int n)

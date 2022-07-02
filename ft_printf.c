@@ -6,7 +6,7 @@
 /*   By: mweverli <mweverli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/02 19:07:06 by mweverli      #+#    #+#                 */
-/*   Updated: 2022/07/02 17:31:00 by mweverli      ########   odam.nl         */
+/*   Updated: 2022/07/02 19:13:41 by mweverli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,13 @@ static const t_func	g_func_array[256] = {
 ['c'] = &put_char,
 ['s'] = &put_str,
 ['i'] = &put_int,
+['u'] = &put_uint,
 ['d'] = &put_int,
 ['x'] = &put_hex,
 ['X'] = &put_hex_up,
 ['p'] = &put_poi,
 ['%'] = &put_prc
 };
-
-int	write_till(const char **str)
-{
-	int	count;
-
-	count = 0;
-	while ((*str)[count] && (*str)[count] != FORMAT_CHAR)
-		count++;
-	write(1, *str, count);
-	*str += count;
-	return (count);
-}
 
 int	ft_printf(const char *str, ...)
 {
