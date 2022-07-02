@@ -6,96 +6,107 @@
 /*   By: mweverli <mweverli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 14:26:14 by mweverli      #+#    #+#                 */
-/*   Updated: 2022/07/02 18:04:49 by mweverli      ########   odam.nl         */
+/*   Updated: 2022/07/02 18:12:06 by mweverli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	put_char(va_list *list)
+char	*ft_itoa(long n)
 {
-	char	c;
-
-	c = va_arg(*list, int);
-	write(1, &c, 1);
-	return (1);
-}
-
-int	put_str(va_list *list)
-{
+	int		i_len;
 	char	*str;
-	int		count;
 
-	str = va_arg(*list, char *);
-	count = 0;
-	if (str == NULL)
+	i_len = base_len(n, 10);
+	str = malloc((i_len + 1) * sizeof(char));
+	if (!str)
+		return (NULL);
+	str[i_len] = '\0';
+	i_len--;
+	if (n < 0)
 	{
-		write(1, "(null)", 6);
-		return (6);
+		str[0] = '-';
+		n *= -1;
 	}
-	while (str[count])
-		count++;
-	write(1, str, (count));
-	return (count);
+	else if (n == 0)
+		str[0] = '0';
+	while (n > 0 && i_len >= 0)
+	{
+		str[i_len] = '0' + (n % 10);
+		n /= 10;
+		i_len--;
+	}
+	return (str);
 }
 
-int	put_poi(va_list *list)
+int	base_len(long n, int base)
 {
-	write(1, "0x", 2);
-	return (2 + put_hex(list));
+	int	len;
+
+	len = 0;
+	if (n <= 0)
+	{
+		n *= -1;
+		len++;
+	}
+	while (n)
+	{
+		n /= (long) base;
+		len++;
+	}
+	return (len);
 }
 
-int	put_int(va_list *list)
+void	ft_itoh_sub(char *set, char *str, unsigned int n)
 {
-	int		num;
+	long	power;
+	int		rem;
+	int		i;
+	short	flag;
+
+	power = 4294967296;
+	i = 0;
+	flag = 0;
+	while (power)
+	{
+		if ((n && power <= n) || flag)
+		{
+			flag = 1;
+			rem = n / power;
+			str[i++] = set[rem];
+			while (n >= power)
+				n -= power;
+		}
+		power /= 16;
+	}
+	return ;
+}
+
+char	*ft_itoh(unsigned int n)
+{
+	char	*set;
 	char	*str;
+	int		b_len;
 
-	num = va_arg(*list, int);
-	str = ft_itoa((long) num);
-	num = base_len((long) num, 10);
-	write(1, str, num);
+	set = "0123456789abcdef\0";
+	b_len = base_len((long) n, 16);
+	str = malloc((b_len + 1) * sizeof(char));
 	if (!str)
-		return (0);
-	free(str);
-	return (num);
+		return (NULL);
+	str[b_len] = '\0';
+	ft_itoh_sub(set, str, n);
+	if (n == 0)
+		str[0] = '0';
+	return (str);
 }
 
-int	put_hex(va_list *list)
+void	ft_strtoupper(char *str)
 {
-	char			*str;
-	unsigned int	n;
-
-	n = va_arg(*list, unsigned int);
-	str = ft_itoh(n);
-	if (!str)
-		return (0);
-	n = (unsigned int) base_len(n, 16);
-	write(1, str, n);
-	free(str);
-	return ((int) n);
-}
-
-int	put_hex_up(va_list *list)
-{
-	char			*str;
-	unsigned int	n;
-
-	n = va_arg(*list, unsigned int);
-	str = ft_itoh(n);
-	if (!str)
-		return (0);
-	n = (unsigned int) base_len(n, 16);
-	ft_strtoupper(str);
-	write(1, str, n);
-	free(str);
-	return ((int) n);
-
-
-}
-
-int	put_prc(va_list *list)
-{
-	(void) list;
-	write(1, "%", 1);
-	return (1);
+	while (*str)
+	{
+		if (*str >= 'a' && *str <= 'z')
+			*str -= 32;
+		str++;
+	}
+	return ;
 }
