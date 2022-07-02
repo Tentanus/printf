@@ -6,7 +6,7 @@
 /*   By: mweverli <mweverli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 14:26:14 by mweverli      #+#    #+#                 */
-/*   Updated: 2022/06/23 18:14:06 by mweverli      ########   odam.nl         */
+/*   Updated: 2022/07/02 18:04:49 by mweverli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,33 +52,45 @@ int	put_int(va_list *list)
 
 	num = va_arg(*list, int);
 	str = ft_itoa((long) num);
-	num = 0;
-	while (str[num])
-		num++;
+	num = base_len((long) num, 10);
 	write(1, str, num);
+	if (!str)
+		return (0);
 	free(str);
 	return (num);
 }
 
 int	put_hex(va_list *list)
 {
-	char			*set;
-	unsigned long	n;
+	char			*str;
+	unsigned int	n;
 
-	set = "0123456789abcdef\0";
-	n = va_arg(*list, unsigned long);
-	while (n != 0)
-	{
-		n = n % 16;
-	}
-	return (0);
+	n = va_arg(*list, unsigned int);
+	str = ft_itoh(n);
+	if (!str)
+		return (0);
+	n = (unsigned int) base_len(n, 16);
+	write(1, str, n);
+	free(str);
+	return ((int) n);
 }
 
-int	put_HEX(va_list *list)
+int	put_hex_up(va_list *list)
 {
-	(void) list;
+	char			*str;
+	unsigned int	n;
 
-	return (write(1, "SHIT\0", 5));
+	n = va_arg(*list, unsigned int);
+	str = ft_itoh(n);
+	if (!str)
+		return (0);
+	n = (unsigned int) base_len(n, 16);
+	ft_strtoupper(str);
+	write(1, str, n);
+	free(str);
+	return ((int) n);
+
+
 }
 
 int	put_prc(va_list *list)

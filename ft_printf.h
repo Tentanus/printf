@@ -6,7 +6,7 @@
 /*   By: mweverli <mweverli@codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 16:15:30 by mweverli      #+#    #+#                 */
-/*   Updated: 2022/06/23 18:14:04 by mweverli      ########   odam.nl         */
+/*   Updated: 2022/07/02 16:20:47 by mweverli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,13 @@ int				put_char(va_list *list);
 int				put_str(va_list *list);
 int				put_poi(va_list *list);
 int				put_hex(va_list *list);
-int				put_HEX(va_list *list);
+int				put_hex_up(va_list *list);
 int				put_int(va_list *list);
 int				put_prc(va_list *list);
 //printf_utils_02
 char			*ft_itoa(long n);
-int				int_len(long num);
+char			*ft_itoh(unsigned int n);
+int				base_len(long num, int base);
+void			ft_strtoupper(char *str);
 
 #endif

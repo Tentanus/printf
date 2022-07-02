@@ -6,18 +6,18 @@
 /*   By: mweverli <mweverli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 14:26:14 by mweverli      #+#    #+#                 */
-/*   Updated: 2022/06/23 18:14:00 by mweverli      ########   odam.nl         */
+/*   Updated: 2022/07/02 18:12:06 by mweverli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char *ft_itoa(long n)
+char	*ft_itoa(long n)
 {
 	int		i_len;
 	char	*str;
 
-	i_len = int_len(n);
+	i_len = base_len(n, 10);
 	str = malloc((i_len + 1) * sizeof(char));
 	if (!str)
 		return (NULL);
@@ -39,9 +39,9 @@ char *ft_itoa(long n)
 	return (str);
 }
 
-int int_len(long n, int base)
+int	base_len(long n, int base)
 {
-	int len;
+	int	len;
 
 	len = 0;
 	if (n <= 0)
@@ -57,8 +57,56 @@ int int_len(long n, int base)
 	return (len);
 }
 
-char	*ft_itoh(long n)
+void	ft_itoh_sub(char *set, char *str, unsigned int n)
 {
-	n = 0;
-	return ("hey");
+	long	power;
+	int		rem;
+	int		i;
+	short	flag;
+
+	power = 4294967296;
+	i = 0;
+	flag = 0;
+	while (power)
+	{
+		if ((n && power <= n) || flag)
+		{
+			flag = 1;
+			rem = n / power;
+			str[i++] = set[rem];
+			while (n >= power)
+				n -= power;
+		}
+		power /= 16;
+	}
+	return ;
+}
+
+char	*ft_itoh(unsigned int n)
+{
+	char	*set;
+	char	*str;
+	int		b_len;
+
+	set = "0123456789abcdef\0";
+	b_len = base_len((long) n, 16);
+	str = malloc((b_len + 1) * sizeof(char));
+	if (!str)
+		return (NULL);
+	str[b_len] = '\0';
+	ft_itoh_sub(set, str, n);
+	if (n == 0)
+		str[0] = '0';
+	return (str);
+}
+
+void	ft_strtoupper(char *str)
+{
+	while (*str)
+	{
+		if (*str >= 'a' && *str <= 'z')
+			*str -= 32;
+		str++;
+	}
+	return ;
 }
