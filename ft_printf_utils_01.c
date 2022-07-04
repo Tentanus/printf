@@ -6,7 +6,7 @@
 /*   By: mweverli <mweverli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 14:26:14 by mweverli      #+#    #+#                 */
-/*   Updated: 2022/07/02 19:15:50 by mweverli      ########   odam.nl         */
+/*   Updated: 2022/07/04 21:01:05 by mweverli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ char	*ft_itoa(long n)
 	int		i_len;
 	char	*str;
 
-	i_len = base_len(n, 10);
+	i_len = base_len((unsigned long) ((n > 0) ? n : -n), 10);
+	if (n < 0)
+		i_len++;
 	str = malloc((i_len + 1) * sizeof(char));
 	if (!str)
 		return (NULL);
@@ -39,19 +41,16 @@ char	*ft_itoa(long n)
 	return (str);
 }
 
-int	base_len(long n, int base)
+int	base_len(unsigned long n, int base)
 {
 	int	len;
 
 	len = 0;
-	if (n <= 0)
-	{
-		n *= -1;
+	if (n == 0)
 		len++;
-	}
 	while (n)
 	{
-		n /= (long) base;
+		n /= (unsigned long) base;
 		len++;
 	}
 	return (len);
@@ -69,7 +68,7 @@ int	write_till(const char **str)
 	return (count);
 }
 
-void	ft_itoh_sub(char *set, char *str, unsigned int n)
+void	ft_itoh_sub(char *set, char *str, unsigned long n)
 {
 	long	power;
 	int		rem;
@@ -81,13 +80,13 @@ void	ft_itoh_sub(char *set, char *str, unsigned int n)
 	flag = 0;
 	while (power)
 	{
-		if ((n && power <= n) || flag)
+		if ((n && (unsigned long) power <= n) || flag)
 		{
 			flag = 1;
-			rem = n / power;
+			rem = n / (unsigned long) power;
 			str[i++] = set[rem];
-			while (n >= power)
-				n -= power;
+			while (n >= (unsigned long) power)
+				n -= (unsigned long) power;
 		}
 		power /= 16;
 	}

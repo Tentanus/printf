@@ -6,7 +6,7 @@
 #    By: mweverli <mweverli@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/11/29 14:51:29 by mweverli      #+#    #+#                  #
-#    Updated: 2022/07/02 18:26:33 by mweverli      ########   odam.nl          #
+#    Updated: 2022/07/04 19:27:46 by mweverli      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,14 +14,13 @@
 
 #STANDARD VARIABLES
 
-NAME	=	ft_printf
+NAME	=	libftprintf
 EXE 	=	$(NAME).out
 OBJ_DIR	=	./OBJ
 
 OBJ		=	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
 
-SRC		=	main.c\
-			ft_printf.c\
+SRC		=	ft_printf.c\
 			ft_printf_dec.c\
 			ft_printf_hex.c\
 			ft_printf_str.c\
@@ -41,10 +40,11 @@ endif
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	ar rcs $(NAME) $< 
+	ar rcs $(NAME).a $^ 
 
 test: $(OBJ)
-	$(CC) $(CFL) -o $(EXE) $^
+	$(CC) $(CFL) -o $(OBJ_DIR)/main.o -c main.c 
+	$(CC) $(CFL) -o $(EXE) $^ $(OBJ_DIR)/main.o
 	./$(EXE)
 
 db: clean
@@ -60,7 +60,7 @@ clean:
 	rm -rf $(OBJ_DIR)
 
 fclean: clean
-	rm -f $(NAME)
+	rm -f $(NAME).a
 	rm -f $(EXE)
 
 re: fclean all

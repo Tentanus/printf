@@ -15,13 +15,12 @@ int main(void){
 //*
 	int		ret_cont;
 	int		ret_test;
-	char	str[] = "test me baby |%u|\n\0";
-//	char	test[] = "A string\0";
-	long		test = 4294967298;
+	char	str[] = "p:%p\t%p\n\0";
+	unsigned long p = LONG_MAX;
 
 	printf("\n--==-- STARTING THE TEST --==--\n\n");
-	ret_cont = printf(str, test);
-	ret_test = ft_printf(str, test);
+	ret_cont = printf(str, p);
+	ret_test = ft_printf(str, p);
 
 	if (ret_cont != ret_test)
 		printf("\n--==-- RETURN ERROR --==--\nControl_v_Case: %d v %d\n", ret_cont, ret_test);
