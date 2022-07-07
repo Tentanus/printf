@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_printf_utils.c                                  :+:    :+:            */
+/*   ft_printf_utils_01.c                               :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: mweverli <mweverli@student.codam.nl>         +#+                     */
+/*   By: mweverli <mweverli@student.codam.n>          +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/06/07 14:26:14 by mweverli      #+#    #+#                 */
-/*   Updated: 2022/07/04 21:01:05 by mweverli      ########   odam.nl         */
+/*   Created: 2022/07/07 18:15:37 by mweverli      #+#    #+#                 */
+/*   Updated: 2022/07/07 18:16:02 by mweverli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@ char	*ft_itoa(long n)
 	int		i_len;
 	char	*str;
 
-	i_len = base_len((unsigned long) ((n > 0) ? n : -n), 10);
-	if (n < 0)
-		i_len++;
+	i_len = base_len_dec(n);
 	str = malloc((i_len + 1) * sizeof(char));
 	if (!str)
 		return (NULL);
@@ -41,19 +39,26 @@ char	*ft_itoa(long n)
 	return (str);
 }
 
-int	base_len(unsigned long n, int base)
+char	*ft_itoh(unsigned long n)
 {
-	int	len;
+	char	*set;
+	char	*str;
+	int		b_len;
 
-	len = 0;
+	set = "0123456789abcdef\0";
+	b_len = base_len_hex(n);
+	str = malloc((b_len + 1) * sizeof(char));
+	if (!str)
+		return (NULL);
+	str[b_len--] = '\0';
 	if (n == 0)
-		len++;
+		str[0] = '0';
 	while (n)
 	{
-		n /= (unsigned long) base;
-		len++;
+		str[b_len--] = set[n % 16];
+		n /= 16;
 	}
-	return (len);
+	return (str);
 }
 
 int	write_till(const char **str)
@@ -66,49 +71,6 @@ int	write_till(const char **str)
 	write(1, *str, count);
 	*str += count;
 	return (count);
-}
-
-void	ft_itoh_sub(char *set, char *str, unsigned long n)
-{
-	long	power;
-	int		rem;
-	int		i;
-	short	flag;
-
-	power = 4294967296;
-	i = 0;
-	flag = 0;
-	while (power)
-	{
-		if ((n && (unsigned long) power <= n) || flag)
-		{
-			flag = 1;
-			rem = n / (unsigned long) power;
-			str[i++] = set[rem];
-			while (n >= (unsigned long) power)
-				n -= (unsigned long) power;
-		}
-		power /= 16;
-	}
-	return ;
-}
-
-char	*ft_itoh(unsigned int n)
-{
-	char	*set;
-	char	*str;
-	int		b_len;
-
-	set = "0123456789abcdef\0";
-	b_len = base_len((long) n, 16);
-	str = malloc((b_len + 1) * sizeof(char));
-	if (!str)
-		return (NULL);
-	str[b_len] = '\0';
-	ft_itoh_sub(set, str, n);
-	if (n == 0)
-		str[0] = '0';
-	return (str);
 }
 
 void	ft_strtoupper(char *str)
