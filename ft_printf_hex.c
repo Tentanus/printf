@@ -6,7 +6,7 @@
 /*   By: mweverli <mweverli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 14:26:14 by mweverli      #+#    #+#                 */
-/*   Updated: 2022/07/07 18:10:24 by mweverli      ########   odam.nl         */
+/*   Updated: 2022/07/08 22:23:07 by mweverli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ int	base_len_hex(unsigned long n)
 	return (len);
 }
 
-int	put_poi(va_list *list)
+int	put_poi(va_list list)
 {
 	char			*str;
 	unsigned long	n;
 	int				len;
 
-	n = va_arg(*list, unsigned long);
+	n = va_arg(list, unsigned long);
 	str = ft_itoh(n);
 	if (!str)
 		return (0);
@@ -44,12 +44,12 @@ int	put_poi(va_list *list)
 	return (2 + len);
 }
 
-int	put_hex(va_list *list)
+int	put_hex(va_list list)
 {
 	char			*str;
 	unsigned int	n;
 
-	n = va_arg(*list, unsigned long);
+	n = va_arg(list, unsigned int);
 	str = ft_itoh(n);
 	if (!str)
 		return (0);
@@ -59,12 +59,12 @@ int	put_hex(va_list *list)
 	return (n);
 }
 
-int	put_hex_up(va_list *list)
+int	put_hex_up(va_list list)
 {
 	char			*str;
 	unsigned int	n;
 
-	n = va_arg(*list, unsigned long);
+	n = va_arg(list, unsigned long);
 	str = ft_itoh(n);
 	if (!str)
 		return (0);

@@ -6,27 +6,27 @@
 /*   By: mweverli <mweverli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 14:26:14 by mweverli      #+#    #+#                 */
-/*   Updated: 2022/07/07 15:29:14 by mweverli      ########   odam.nl         */
+/*   Updated: 2022/07/08 22:23:44 by mweverli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	put_char(va_list *list)
+int	put_char(va_list list)
 {
 	char	c;
 
-	c = va_arg(*list, int);
+	c = va_arg(list, int);
 	write(1, &c, 1);
 	return (1);
 }
 
-int	put_str(va_list *list)
+int	put_str(va_list list)
 {
 	char	*str;
 	int		count;
 
-	str = va_arg(*list, char *);
+	str = va_arg(list, char *);
 	count = 0;
 	if (str == NULL)
 	{

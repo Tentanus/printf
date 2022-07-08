@@ -6,13 +6,13 @@
 #    By: mweverli <mweverli@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/11/29 14:51:29 by mweverli      #+#    #+#                  #
-#    Updated: 2022/07/04 19:27:46 by mweverli      ########   odam.nl          #
+#    Updated: 2022/07/08 22:30:57 by mweverli      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 #Remove all debugging functionalities before hand-in.
 
-#STANDARD VARIABLES
+#VARIABLES:
 
 NAME	=	libftprintf
 EXE 	=	$(NAME).out
@@ -27,15 +27,13 @@ SRC		=	ft_printf.c\
 			ft_printf_mis.c\
 			ft_printf_utils_01.c\
 
-
 ifdef DB
 CFL		=	-Wall -Werror -Wextra -g
 else
 CFL		=	-Wall -Werror -Wextra
 endif
 
-
-# Recipes:
+#RECIPES MAKEFILE:
 
 all: $(NAME)
 
@@ -54,13 +52,14 @@ $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(@D)
 	$(CC) $(CFL) -c $< -o $@
 
-
 clean:
 	@mkdir -p $(OBJ_DIR)
 	rm -rf $(OBJ_DIR)
 
 fclean: clean
 	rm -f $(NAME).a
+
+tclean: clean fclean
 	rm -f $(EXE)
 
 re: fclean all

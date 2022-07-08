@@ -6,7 +6,7 @@
 /*   By: mweverli <mweverli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/02 19:07:06 by mweverli      #+#    #+#                 */
-/*   Updated: 2022/07/07 15:36:02 by mweverli      ########   odam.nl         */
+/*   Updated: 2022/07/08 21:57:43 by mweverli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	ft_printf(const char *str, ...)
 		{
 			str++;
 			if (*g_func_array[(int) *str] != NULL)
-				strlen += (*g_func_array[(int) *str++])(&arg);
+				strlen += (*g_func_array[(int) *str++])(arg);
 			else
 			{
 				str++;
@@ -51,15 +51,3 @@ int	ft_printf(const char *str, ...)
 	va_end(arg);
 	return (strlen);
 }
-
-/*
- * Character			 c 
- * String				 s 
- * Pointer				 p 
- * Decimal				 d |
- * Interger				 i |
- * Unsigned Interger	 u  
- * Hexadecimal Lower	 x |
- * Hexadecimal Upper	 X |
- * Percentage Sign		 % 
- */

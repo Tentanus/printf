@@ -6,7 +6,7 @@
 /*   By: mweverli <mweverli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 14:26:14 by mweverli      #+#    #+#                 */
-/*   Updated: 2022/07/07 18:14:58 by mweverli      ########   odam.nl         */
+/*   Updated: 2022/07/08 22:22:30 by mweverli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ int	base_len_dec(long n)
 	return (len);
 }
 
-int	put_int(va_list *list)
+int	put_int(va_list list)
 {
 	int		num;
 	char	*str;
 
-	num = va_arg(*list, int);
+	num = va_arg(list, int);
 	str = ft_itoa((long) num);
 	if (!str)
 		return (0);
@@ -42,12 +42,12 @@ int	put_int(va_list *list)
 	return (num);
 }
 
-int	put_uint(va_list *list)
+int	put_uint(va_list list)
 {
 	unsigned int	num;
 	char			*str;
 
-	num = va_arg(*list, unsigned int);
+	num = va_arg(list, unsigned int);
 	str = ft_itoa((long) num);
 	if (!str)
 		return (0);

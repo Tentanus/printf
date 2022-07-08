@@ -6,7 +6,7 @@
 /*   By: mweverli <mweverli@codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/02 16:15:30 by mweverli      #+#    #+#                 */
-/*   Updated: 2022/07/07 18:14:23 by mweverli      ########   odam.nl         */
+/*   Updated: 2022/07/08 22:26:16 by mweverli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,29 +26,29 @@
 #  define FORMAT_CHAR '%'
 # endif
 
-typedef int		(*t_func) (va_list *);
+typedef int		(*t_func) (va_list );
 
 //FUNCTION
 //				FT_PRINTF
 int				ft_printf(const char *str, ...);
 
 //				FT_PRINTF_STR
-int				put_char(va_list *list);
-int				put_str(va_list *list);
+int				put_char(va_list list);
+int				put_str(va_list list);
 
 //				FT_PRINTF_HEX
 int				base_len_hex(unsigned long n);
-int				put_poi(va_list *list);
-int				put_hex(va_list *list);
-int				put_hex_up(va_list *list);
+int				put_poi(va_list list);
+int				put_hex(va_list list);
+int				put_hex_up(va_list list);
 
 //				FT_PRINTF_DEC
 int				base_len_dec(long n);
-int				put_int(va_list *list);
-int				put_uint(va_list *list);
+int				put_int(va_list list);
+int				put_uint(va_list list);
 
 //				FT_PRINTF_MIS
-int				put_prc(va_list *list);
+int				put_prc(va_list list);
 
 //				FT_PRINTF_UTILS_01
 char			*ft_itoa(long n);
