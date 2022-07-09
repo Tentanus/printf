@@ -6,13 +6,13 @@
 #    By: mweverli <mweverli@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/11/29 14:51:29 by mweverli      #+#    #+#                  #
-#    Updated: 2022/07/08 22:30:57 by mweverli      ########   odam.nl          #
+#    Updated: 2022/07/09 15:36:42 by mweverli      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 #Remove all debugging functionalities before hand-in.
 
-#VARIABLES:
+#STANDARD VARIABLES:
 
 NAME	=	libftprintf
 EXE 	=	$(NAME).out
@@ -33,7 +33,7 @@ else
 CFL		=	-Wall -Werror -Wextra
 endif
 
-#RECIPES MAKEFILE:
+# Recipes:
 
 all: $(NAME)
 
@@ -59,7 +59,9 @@ clean:
 fclean: clean
 	rm -f $(NAME).a
 
-tclean: clean fclean
+tclean: fclean
 	rm -f $(EXE)
 
 re: fclean all
+
+.PHONY: clean fclean tclean re db

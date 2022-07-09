@@ -6,7 +6,7 @@
 /*   By: mweverli <mweverli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/06/07 14:26:14 by mweverli      #+#    #+#                 */
-/*   Updated: 2022/07/08 22:23:07 by mweverli      ########   odam.nl         */
+/*   Updated: 2022/07/09 15:39:10 by mweverli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,16 @@ int	put_poi(va_list list)
 {
 	char			*str;
 	unsigned long	n;
-	int				len;
 
 	n = va_arg(list, unsigned long);
 	str = ft_itoh(n);
 	if (!str)
 		return (0);
-	len = base_len_hex(n);
+	n = base_len_hex(n);
 	write(1, "0x", 2);
-	write(1, str, len);
+	write(1, str, n);
 	free(str);
-	return (2 + len);
+	return (2 + (int) n);
 }
 
 int	put_hex(va_list list)

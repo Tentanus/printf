@@ -6,12 +6,11 @@
 /*   By: mweverli <mweverli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/12/02 19:07:06 by mweverli      #+#    #+#                 */
-/*   Updated: 2022/07/08 21:57:43 by mweverli      ########   odam.nl         */
+/*   Updated: 2022/07/09 15:37:11 by mweverli      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
 static const t_func	g_func_array[256] = {
 ['c'] = &put_char,
