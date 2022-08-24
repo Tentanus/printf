@@ -6,7 +6,7 @@
 #    By: mweverli <mweverli@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/11/29 14:51:29 by mweverli      #+#    #+#                  #
-#    Updated: 2022/07/09 15:36:42 by mweverli      ########   odam.nl          #
+#    Updated: 2022/08/24 22:41:31 by mweverli      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,23 +14,19 @@
 
 #STANDARD VARIABLES:
 
-NAME	=	libftprintf
-EXE 	=	$(NAME).out
-OBJ_DIR	=	./OBJ
+NAME	:=	printf
+SRC_DIR	:=	./src
+OBJ_DIR	:=	./OBJ
+INC_DIR	:=	./include
 
-OBJ		=	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
-
-SRC		=	ft_printf.c\
-			ft_printf_dec.c\
-			ft_printf_hex.c\
-			ft_printf_str.c\
-			ft_printf_mis.c\
-			ft_printf_utils_01.c\
+SRC		:=	$(shell ls src/)
+OBJ		:=	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
+HEADER	:=	-I $(INC_DIR)
 
 ifdef DB
-CFL		=	-Wall -Werror -Wextra -g
+CFL		:=	-Wall -Werror -Wextra -g
 else
-CFL		=	-Wall -Werror -Wextra
+CFL		:=	-Wall -Werror -Wextra
 endif
 
 # Recipes:
@@ -38,29 +34,22 @@ endif
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	ar rcs $(NAME).a $^ 
+	ar rcs $(NAME).a $^
 
-test: $(OBJ)
-	$(CC) $(CFL) -o $(OBJ_DIR)/main.o -c main.c 
-	$(CC) $(CFL) -o $(EXE) $^ $(OBJ_DIR)/main.o
-	./$(EXE)
+$(OBJ_DIR):
+	@mkdir -p $@
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
+	$(CC) $(CFL) -c $< -o $@ $(HEADER)
 
 db: clean
-	@ $(MAKE) test DB=1
-
-$(OBJ_DIR)/%.o: %.c
-	@mkdir -p $(@D)
-	$(CC) $(CFL) -c $< -o $@
+	@$(MAKE) test DB=1
 
 clean:
-	@mkdir -p $(OBJ_DIR)
-	rm -rf $(OBJ_DIR)
+	@rm -rf $(OBJ_DIR)
 
 fclean: clean
-	rm -f $(NAME).a
-
-tclean: fclean
-	rm -f $(EXE)
+	@rm -f $(NAME).a
 
 re: fclean all
 
