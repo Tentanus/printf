@@ -6,7 +6,7 @@
 #    By: mweverli <mweverli@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/11/29 14:51:29 by mweverli      #+#    #+#                  #
-#    Updated: 2022/08/24 22:41:31 by mweverli      ########   odam.nl          #
+#    Updated: 2022/08/24 22:49:23 by mweverli      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,13 +34,13 @@ endif
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	ar rcs $(NAME).a $^
+	@ar rcs $(NAME).a $^
 
 $(OBJ_DIR):
 	@mkdir -p $@
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
-	$(CC) $(CFL) -c $< -o $@ $(HEADER)
+	@$(CC) $(CFL) -c $< -o $@ $(HEADER)
 
 db: clean
 	@$(MAKE) test DB=1
