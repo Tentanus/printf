@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-static const t_func	g_func_array[256] = {
+static const t_func	g_func_array[128] = {
 ['c'] = &put_char,
 ['s'] = &put_str,
 ['i'] = &put_int,
@@ -26,20 +26,20 @@ static const t_func	g_func_array[256] = {
 
 int	ft_printf(const char *str, ...)
 {
-	int		strlen;
+	int		len_ret;
 	va_list	arg;
 
 	va_start(arg, str);
-	strlen = 0;
+	len_ret = 0;
 	while (*str)
 	{
 		if (*str != FORMAT_CHAR)
-			strlen += write_till(&str);
+			len_ret += write_till(&str);
 		else
 		{
 			str++;
 			if (*g_func_array[(int) *str] != NULL)
-				strlen += (*g_func_array[(int) *str++])(arg);
+				len_ret += (*g_func_array[(int) *str++])(arg);
 			else
 			{
 				str++;
@@ -48,5 +48,5 @@ int	ft_printf(const char *str, ...)
 		}
 	}
 	va_end(arg);
-	return (strlen);
+	return (len_ret);
 }

@@ -14,27 +14,33 @@
 #========== GENERAL VARIABLES ===========#
 #========================================#
 
-NAME	:=	printf.a
-SRC_DIR	:=	./src
-OBJ_DIR	:=	./OBJ
-INC_DIR	:=	./include
+NAME		:=	printf.a
+NAME_BASE	:=	$(basename $(NAME))
+SRC_DIR		:=	./src
+OBJ_DIR		:=	./obj
+INC_DIR		:=	./include
 
-SRC		:=	$(shell ls src/)
-OBJ		:=	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
-HEADER	:=	-I $(INC_DIR)
+#=========  SOURCE  VARIABLES:  =========#
 
-ifdef DB
-CFL		:=	-Wall -Werror -Wextra -g
+SRC			:=	ft_printf.c \
+				ft_printf_dec.c \
+				ft_printf_hex.c \
+				ft_printf_mis.c \
+				ft_printf_str.c \
+				ft_printf_utils.c 
+
+OBJ			:=	$(addprefix $(OBJ_DIR)/,$(SRC:.c=.o))
+HEADER		:=	-I $(INC_DIR)
+
+#========================================#
+#=========      UTENSILS:       =========#
+#========================================#
+
+ifdef DEBUG
+CFL			:=	-Wall -Werror -Wextra -g
 else
-CFL		:=	-Wall -Werror -Wextra
+CFL			:=	-Wall -Werror -Wextra
 endif
-
-#============== COLOURS  ===============#
-
-BOLD	:= \033[1m
-GREEN	:= \033[32;1m
-RED		:= \033[31;1m
-RESET	:= \033[0m
 
 #========================================#
 #============== RECIPIES  ===============#
@@ -44,7 +50,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@ar rcs $(NAME) $^
-	@echo "$(GREEN)$(BOLD)FINISHED COMPILING: $(NAME)$(RESET)"
+	@echo "$(GREEN)$(BOLD)========= $(NAME) COMPILED ========$(RESET)"
 
 $(OBJ_DIR):
 	@mkdir -p $@
@@ -53,19 +59,24 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	@$(CC) $(CFL) -c $< -o $@ $(HEADER)
 	@echo "$(GREEN)$(BOLD)COMPILING: $(notdir $<)$(RESET)"
 
-
-db: clean
-	@$(MAKE) test DB=1
-
 clean:
 	@rm -rf $(OBJ_DIR)
-	@echo "$(RED)$(BOLD)Cleaning Prinf$(RESET)"
+	@echo "$(RED)$(BOLD)========= $(NAME) COMPILED ========$(RESET)"
 
 fclean: clean
 	@rm -f $(NAME)
 
 re: fclean all
 
+#========================================#
+#=========    MISCELLANEOUS:    =========#
+#========================================#
+
 .PHONY: all lean fclean re db
 
 .DEFAULT_GOAL := all
+
+BOLD	:= \033[1m
+GREEN	:= \033[32;1m
+RED		:= \033[31;1m
+RESET	:= \033[0m

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_printf_utils.c                                  :+:    :+:            */
+/*   ft_printf_str.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mweverli <mweverli@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
@@ -17,8 +17,7 @@ int	put_char(va_list list)
 	char	c;
 
 	c = va_arg(list, int);
-	write(1, &c, 1);
-	return (1);
+	return (write(1, &c, 1));
 }
 
 int	put_str(va_list list)
@@ -27,9 +26,9 @@ int	put_str(va_list list)
 	int		count;
 
 	str = va_arg(list, char *);
-	count = 0;
 	if (str == NULL)
 		return (write(1, "(null)", 6));
+	count = 0;
 	while (str[count])
 		count++;
 	write(1, str, (count));
